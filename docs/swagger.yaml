@@ -1,0 +1,216 @@
+definitions:
+  models.RefreshTokenRequest:
+    properties:
+      refreshtoken:
+        type: string
+    required:
+    - refreshtoken
+    type: object
+  models.TokenRequest:
+    properties:
+      token:
+        type: string
+    required:
+    - token
+    type: object
+  models.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+info:
+  contact: {}
+  description: Auth REST API documentation
+  title: Auth Rest API's
+  version: "1.0"
+paths:
+  /authorize-token:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint allows user to Authorize access token .
+      parameters:
+      - description: Access Token
+        in: body
+        name: token
+        required: true
+        schema:
+          $ref: '#/definitions/models.TokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'message: valid token'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: 'Error: Bad Request'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: 'Error: unauthorized'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Authorize Token
+      tags:
+      - Auth Rest Api's
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint allows user to Login using given email and password
+        .
+      parameters:
+      - description: User Details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'message: Login successful'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: 'Error: Bad Request'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: 'Error: Unauthorized'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: 'Error: Internal Server Error'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Login User
+      tags:
+      - Auth Rest Api's
+  /refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint allows user to Get New Accesstoken using refresh
+        token .
+      parameters:
+      - description: Refresh token request
+        in: body
+        name: refreshtoken
+        required: true
+        schema:
+          $ref: '#/definitions/models.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'message: New Token Generated'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: 'Error: Bad Request'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: 'Error: Internal Server Error'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Refresh Token
+      tags:
+      - Auth Rest Api's
+  /revoke-token:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint allows user to revoke the access token .
+      parameters:
+      - description: Access Token
+        in: body
+        name: token
+        required: true
+        schema:
+          $ref: '#/definitions/models.TokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'message: Token is Revoked '
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: 'Error: Bad Request'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Revoke Token
+      tags:
+      - Auth Rest Api's
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: This endpoint allows user to sign up using email and password .
+      parameters:
+      - description: User Details
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: 'message: user created'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: 'Error: Bad Request'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: 'Error: Internal Server Error'
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Signingup User
+      tags:
+      - Auth Rest Api's
+swagger: "2.0"
